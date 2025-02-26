@@ -35,18 +35,16 @@ function displayBooks() {
             const divBook = document.createElement('div');
             divBook.classList.add('bookDisplay');
             divBook.innerHTML = `
-            <div class="bookImage">
-                <img src="${book.image}" alt="${book.title}">
-                </div>
-                <div class="bookTitle">${book.title}</div>
-                <div class="bookAuthor">${book.author}</div>
+            <div class="book" style="background-image: url('${book.image}');">
+            <div class="bookTitle">${book.title}</div>
+            <div class="bookAuthor">${book.author}</div>
+            </div>
             `;
             bookList.appendChild(divBook);
         });
     }
 }
 
-// 🎯 Rechercher un livre par son titre
 document.getElementById('searchBookForm').addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -56,7 +54,6 @@ document.getElementById('searchBookForm').addEventListener('submit', (event) => 
     document.getElementById('searchResult').textContent = result;
 });
 
-// 🎯 Fonction pour récupérer un livre depuis l'API Google Books
 function fetchApiBook() {
     fetch('https://www.googleapis.com/books/v1/volumes?q=javascript')
         .then(response => {
@@ -72,11 +69,6 @@ function fetchApiBook() {
                     const title = bookInfo.title || 'Titre inconnu';
                     const author = bookInfo.authors ? bookInfo.authors[0] : 'Auteur inconnu';
                     const image = bookInfo.imageLinks ? bookInfo.imageLinks.thumbnail : 'https://via.placeholder.com/100';
-
-                    console.log(`Titre: ${title}`);
-                    console.log(`Auteur: ${author}`);
-                    console.log(`Image: ${image}`);
-
                     const book = new Book(title, author, image);
                     myLibrary.addBook(book);
                 });
