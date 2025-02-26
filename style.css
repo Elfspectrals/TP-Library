@@ -4,13 +4,16 @@
     grid-gap: 10px;
     padding: 10px;
 }
+
 .bookDisplay {
-    width: 100%;
-    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.book {
-    background-repeat: no-repeat;
-    background-size: cover;
-    border: 1px solid black;
+.bookDisplay svg {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    transform: scale(0.5);
 }
