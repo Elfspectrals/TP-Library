@@ -63,17 +63,19 @@ function fetchApiBook() {
         })
         .then(data => {
             if (data.items && data.items.length > 0) {
-                const firstBook = data.items[0].volumeInfo;
-                const title = firstBook.title || 'Titre inconnu';
-                const author = firstBook.authors ? firstBook.authors[0] : 'Auteur inconnu';
-                const image = firstBook.imageLinks ? firstBook.imageLinks.thumbnail : 'https://via.placeholder.com/100';
+                data.items.forEach(item => {
+                    const bookInfo = item.volumeInfo;
+                    const title = bookInfo.title || 'Titre inconnu';
+                    const author = bookInfo.authors ? bookInfo.authors[0] : 'Auteur inconnu';
+                    const image = bookInfo.imageLinks ? bookInfo.imageLinks.thumbnail : 'https://via.placeholder.com/100';
 
-                console.log(`Titre: ${title}`);
-                console.log(`Auteur: ${author}`);
-                console.log(`Image: ${image}`);
+                    console.log(`Titre: ${title}`);
+                    console.log(`Auteur: ${author}`);
+                    console.log(`Image: ${image}`);
 
-                const book = new Book(title, author, image);
-                myLibrary.addBook(book);
+                    const book = new Book(title, author, image);
+                    myLibrary.addBook(book);
+                });
                 displayBooks();
             } else {
                 console.log('No books found.');
