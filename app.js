@@ -21,7 +21,9 @@ document.getElementById('addBookForm').addEventListener('submit', (event) => {
 });
 
 // 🎯 Afficher la liste des livres
-document.getElementById('listBooksBtn').addEventListener('click', () => {
+document.getElementById('listBooksBtn').addEventListener('click', displayBooks);
+
+function displayBooks() {
     const bookList = document.getElementById('bookList');
     bookList.innerHTML = '';
 
@@ -31,11 +33,14 @@ document.getElementById('listBooksBtn').addEventListener('click', () => {
     } else {
         books.forEach(book => {
             const li = document.createElement('li');
-            li.textContent = book;
+            li.innerHTML = `
+                <p>${book.getDetails()}</p>
+                <img src="${book.image}" alt="Image du livre" style="width: 100px; height: auto;">
+            `;
             bookList.appendChild(li);
         });
     }
-});
+}
 
 // 🎯 Rechercher un livre par son titre
 document.getElementById('searchBookForm').addEventListener('submit', (event) => {
@@ -46,3 +51,38 @@ document.getElementById('searchBookForm').addEventListener('submit', (event) => 
     
     document.getElementById('searchResult').textContent = result;
 });
+
+// 🎯 Fonction pour récupérer un livre depuis l'API Google Books
+function fetchApiBook() {
+    fetch('https://www.googleapis.com/books/v1/volumes?q=javascript')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.items && data.items.length > 0) {
+                const firstBook = data.items[0].volumeInfo;
+                const title = firstBook.title || 'Titre inconnu';
+                const author = firstBook.authors ? firstBook.authors[0] : 'Auteur inconnu';
+                const image = firstBook.imageLinks ? firstBook.imageLinks.thumbnail : 'https://via.placeholder.com/100';
+
+                console.log(`Titre: ${title}`);
+                console.log(`Auteur: ${author}`);
+                console.log(`Image: ${image}`);
+
+                const book = new Book(title, author, image);
+                myLibrary.addBook(book);
+                displayBooks();
+            } else {
+                console.log('No books found.');
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+}
+
+// Lancer la récupération d’un livre lors du chargement de la page
+fetchApiBook();

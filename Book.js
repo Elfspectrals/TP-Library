@@ -1,7 +1,8 @@
 export default class Book {
-    constructor(title, author) {
+    constructor(title, author, image) {
         this.title = title;
         this.author = author;
+        this.image = image || 'Image non disponible';
     }
 
     getDetails() {

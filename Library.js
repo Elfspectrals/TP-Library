@@ -8,11 +8,11 @@ export default class Library {
     }
 
     listBooks() {
-        return this.books.map(book => book.getDetails());
+        return this.books;
     }
 
     findBookByTitle(title) {
         const foundBook = this.books.find(book => book.title.toLowerCase() === title.toLowerCase());
-        return foundBook ? foundBook.getDetails() : '❌ Livre non trouvé';
+        return foundBook ? foundBook.getDetails() : 'Livre non trouvé';
     }
 }
