@@ -1,14 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliothèque</title>
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
 </head>
 <body>
-    <script type="module" src="Book.js"></script>
-    <script type="module" src="Library.js"></script>
-    <script src="app.js"></script>
+    <h1>Gestion de la Bibliothèque</h1>
+
+    <h2>Ajouter un Livre</h2>
+    <form id="addBookForm">
+        <input type="text" id="title" placeholder="Titre du livre" required>
+        <input type="text" id="author" placeholder="Auteur" required>
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <h2>Liste des Livres</h2>
+    <button id="listBooksBtn">Afficher les Livres</button>
+    <ul id="bookList"></ul>
+
+    <h2>Rechercher un Livre</h2>
+    <form id="searchBookForm">
+        <input type="text" id="searchTitle" placeholder="Titre du livre" required>
+        <button type="submit">Rechercher</button>
+    </form>
+    <p id="searchResult"></p>
+
+    <script type="module" src="app.js"></script>
 </body>
 </html>

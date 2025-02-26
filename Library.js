@@ -2,18 +2,17 @@ export default class Library {
     constructor() {
         this.books = [];
     }
+
     addBook(book) {
         this.books.push(book);
     }
+
     listBooks() {
-        return this.books;
+        return this.books.map(book => book.getDetails());
     }
+
     findBookByTitle(title) {
-        let foundBook = this.books.find(book => book.title.toLowerCase() === title.toLowerCase());
-        if (foundBook) {
-            return foundBook.getDetails();
-        } else {
-            return 'Livre non trouvé';
-        }
+        const foundBook = this.books.find(book => book.title.toLowerCase() === title.toLowerCase());
+        return foundBook ? foundBook.getDetails() : '❌ Livre non trouvé';
     }
-}   
+}

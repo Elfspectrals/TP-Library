@@ -3,7 +3,8 @@ export default class Book {
         this.title = title;
         this.author = author;
     }
-    getDetails(){
-        return `Titre : ${this.title} / Auteur : ${this.author}`;
+
+    getDetails() {
+        return `📖 ${this.title} - ✍️ ${this.author}`;
     }
 }
