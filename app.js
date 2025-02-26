@@ -6,7 +6,7 @@ const myLibrary = new Library();
 // 🎯 Gestion du formulaire d'ajout de livre
 document.getElementById('addBookForm').addEventListener('submit', (event) => {
     event.preventDefault();
-    
+
     const title = document.getElementById('title').value.trim();
     const author = document.getElementById('author').value.trim();
 
@@ -32,12 +32,16 @@ function displayBooks() {
         bookList.innerHTML = '<li>Aucun livre dans la bibliothèque.</li>';
     } else {
         books.forEach(book => {
-            const li = document.createElement('li');
-            li.innerHTML = `
-                <p>${book.getDetails()}</p>
-                <img src="${book.image}" alt="Image du livre" style="width: 100px; height: auto;">
+            const divBook = document.createElement('div');
+            divBook.classList.add('bookDisplay');
+            divBook.innerHTML = `
+            <div class="bookImage">
+                <img src="${book.image}" alt="${book.title}">
+                </div>
+                <div class="bookTitle">${book.title}</div>
+                <div class="bookAuthor">${book.author}</div>
             `;
-            bookList.appendChild(li);
+            bookList.appendChild(divBook);
         });
     }
 }
@@ -48,7 +52,7 @@ document.getElementById('searchBookForm').addEventListener('submit', (event) => 
 
     const searchTitle = document.getElementById('searchTitle').value.trim();
     const result = myLibrary.findBookByTitle(searchTitle);
-    
+
     document.getElementById('searchResult').textContent = result;
 });
 
