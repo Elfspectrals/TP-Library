@@ -120,19 +120,19 @@ function displayBooks() {
 
           <!-- IMAGE DE COUVERTURE -->
           <image
-            xlink:href="${book.image}"
-            x="50%"
-            y="35%"
-            width="120"
-            height="80"
-            transform="translate(-60, -40)"
-            preserveAspectRatio="xMidYMid meet"
-          />
+  xlink:href="${book.image}"
+  x="50%"
+  y="35%"
+  width="140"
+  height="100"
+  transform="translate(-70, -50)"
+  preserveAspectRatio="xMidYMid meet"
+/>
 
           <!-- Titre principal (sous l'image) -->
           <text
             x="50%"
-            y="65%"
+            y="95%"
             text-anchor="middle"
             font-size="32"
             font-family="Georgia, serif"
@@ -187,7 +187,7 @@ function fetchApiBook() {
                     const author = bookInfo.authors ? bookInfo.authors[0] : 'Auteur inconnu';
                     const image = bookInfo.imageLinks ? bookInfo.imageLinks.thumbnail : 'https://via.placeholder.com/100';
                     console.log(image);
-                    
+
                     // On suppose que la classe Book accepte un 3e argument pour l'image
                     const book = new Book(title, author, image);
                     myLibrary.addBook(book);
