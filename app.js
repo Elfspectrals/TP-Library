@@ -20,8 +20,11 @@ document.getElementById('addBookForm').addEventListener('submit', (event) => {
     }
 });
 
-// 🎯 Afficher la liste des livres
 document.getElementById('listBooksBtn').addEventListener('click', displayBooks);
+
+function truncateText(text, maxLength) {
+    return text.length > maxLength ? text.substring(0, maxLength) + "…" : text;
+}
 
 function displayBooks() {
     const bookList = document.getElementById('bookList');
@@ -132,18 +135,18 @@ function displayBooks() {
             x="50%"
             y="65%"
             text-anchor="middle"
-            font-size="20"
+            font-size="32"
             font-family="Georgia, serif"
             fill="#5c3d12"
             style="font-weight: bold;"
           >
-            ${book.title}
+            ${truncateText(book.title, 20)}
           </text>
               <text
             x="50%"
-            y="90%"
+            y="120%"
             text-anchor="middle"
-            font-size="18"
+            font-size="22"
             font-family="Georgia, serif"
             fill="#5c3d12"
           >
