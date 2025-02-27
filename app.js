@@ -15,6 +15,7 @@ document.getElementById('addBookForm').addEventListener('submit', (event) => {
         myLibrary.addBook(newBook);
         alert(`📚 Livre ajouté : ${title} par ${author}`);
         document.getElementById('addBookForm').reset();
+        displayBooks();
     } else {
         alert("Veuillez remplir tous les champs !");
     }
@@ -24,6 +25,16 @@ document.getElementById('listBooksBtn').addEventListener('click', displayBooks);
 
 function truncateText(text, maxLength) {
     return text.length > maxLength ? text.substring(0, maxLength) + "…" : text;
+}
+
+// 🎨 Générer une couleur unique pour chaque livre en fonction de son titre
+function generateBackgroundColor(title) {
+    let hash = 0;
+    for (let i = 0; i < title.length; i++) {
+        hash = title.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const color = `hsl(${hash % 360}, 70%, 80%)`; // Palette pastel dynamique
+    return color;
 }
 
 function displayBooks() {
@@ -38,7 +49,8 @@ function displayBooks() {
             const divBook = document.createElement('div');
             divBook.classList.add('bookDisplay');
 
-            // ✅ Utilisation de width="100%", height="auto" & preserveAspectRatio
+            const backgroundColor = generateBackgroundColor(book.title);
+
             divBook.innerHTML = `
         <svg
           width="100%"
@@ -66,70 +78,34 @@ function displayBooks() {
             y="10"
             width="190"
             height="277"
-            fill="none"
+            fill="${backgroundColor}"
             stroke="#5c3d12"
             stroke-width="3"
           />
 
-          <g transform="translate(10,10)">
-            <path 
-              d="M 0 0 
-                 C 0 15, 15 0, 30 15
-                 C 45 30, 30 15, 30 30" 
-              fill="none" 
-              stroke="#5c3d12" 
-              stroke-width="2" 
-            />
-          </g>
+          <!-- ✅ Ajout du fond derrière l'image -->
+          <rect
+            x="35"
+            y="75"
+            width="140"
+            height="100"
+            rx="10"
+            ry="10"
+            fill="${backgroundColor}"
+          />
 
-          <!-- Coin supérieur droit -->
-          <g transform="translate(200,10) rotate(90)">
-            <path 
-              d="M 0 0 
-                 C 0 15, 15 0, 30 15
-                 C 45 30, 30 15, 30 30" 
-              fill="none" 
-              stroke="#5c3d12" 
-              stroke-width="2" 
-            />
-          </g>
-
-          <!-- Coin inférieur gauche -->
-          <g transform="translate(10,287) rotate(-90)">
-            <path 
-              d="M 0 0 
-                 C 0 15, 15 0, 30 15
-                 C 45 30, 30 15, 30 30" 
-              fill="none" 
-              stroke="#5c3d12" 
-              stroke-width="2" 
-            />
-          </g>
-
-          <!-- Coin inférieur droit -->
-          <g transform="translate(200,287) rotate(180)">
-            <path 
-              d="M 0 0 
-                 C 0 15, 15 0, 30 15
-                 C 45 30, 30 15, 30 30" 
-              fill="none" 
-              stroke="#5c3d12" 
-              stroke-width="2" 
-            />
-          </g>
-
-          <!-- IMAGE DE COUVERTURE -->
+          <!-- 📖 Image de couverture -->
           <image
-  xlink:href="${book.image}"
-  x="50%"
-  y="35%"
-  width="140"
-  height="100"
-  transform="translate(-70, -50)"
-  preserveAspectRatio="xMidYMid meet"
-/>
+            xlink:href="${book.image}"
+            x="50%"
+            y="35%"
+            width="140"
+            height="100"
+            transform="translate(-70, -50)"
+            preserveAspectRatio="xMidYMid meet"
+          />
 
-          <!-- Titre principal (sous l'image) -->
+          <!-- 📌 Titre principal -->
           <text
             x="50%"
             y="95%"
@@ -139,9 +115,11 @@ function displayBooks() {
             fill="#5c3d12"
             style="font-weight: bold;"
           >
-            ${truncateText(book.title, 20)}
+            ${truncateText(book.title, 15)}
           </text>
-              <text
+
+          <!-- ✒️ Auteur -->
+          <text
             x="50%"
             y="120%"
             text-anchor="middle"
@@ -149,8 +127,7 @@ function displayBooks() {
             font-family="Georgia, serif"
             fill="#5c3d12"
           >
-    ${book.author.split(' ')[0].charAt(0)}.${book.author.split(' ').slice(1).join(' ')}
-
+            ${book.author.split(' ')[0].charAt(0)}.${book.author.split(' ').slice(1).join(' ')}
           </text>
 
         </svg>
@@ -167,7 +144,7 @@ document.getElementById('searchBookForm').addEventListener('submit', (event) => 
     const searchTitle = document.getElementById('searchTitle').value.trim();
     const result = myLibrary.findBookByTitle(searchTitle);
 
-    document.getElementById('searchResult').textContent = result;
+    document.getElementById('searchResult').textContent = result ? `📖 ${result.title} par ${result.author}` : "❌ Livre non trouvé";
 });
 
 // 🎯 Récupération de livres depuis l’API Google Books
@@ -186,9 +163,8 @@ function fetchApiBook() {
                     const title = bookInfo.title || 'Titre inconnu';
                     const author = bookInfo.authors ? bookInfo.authors[0] : 'Auteur inconnu';
                     const image = bookInfo.imageLinks ? bookInfo.imageLinks.thumbnail : 'https://via.placeholder.com/100';
-                    console.log(image);
 
-                    // On suppose que la classe Book accepte un 3e argument pour l'image
+                    // 📖 On suppose que la classe Book accepte un 3e argument pour l'image
                     const book = new Book(title, author, image);
                     myLibrary.addBook(book);
                 });
