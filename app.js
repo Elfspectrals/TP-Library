@@ -42,7 +42,6 @@ function displayBooks() {
             divBook.innerHTML = `
         <svg
           width="100%"
-          height="auto"
           viewBox="0 0 210 297"
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="xMidYMid meet"
@@ -121,7 +120,7 @@ function displayBooks() {
 
           <!-- IMAGE DE COUVERTURE -->
           <image
-            xlink:href="${book.coverImage || 'https://via.placeholder.com/300x200.png?text=Votre+Image'}"
+            xlink:href="./a.png"
             x="50%"
             y="35%"
             width="120"
