@@ -14,8 +14,10 @@
 .bookDisplay svg {
     width: 100%;
     height: auto;
-    border: 1px solid #ccc;
     transform: scale(0.7);
+}
+svg {
+    border: 5px solid salmon;
 }
 svg text {
     scale: 0.5;
