@@ -1,32 +1,46 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bibliothèque</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bibliothèque</title>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: Georgia, serif;
+    }
+  </style>
 </head>
-<body>
-    <h1>Gestion de la Bibliothèque</h1>
+<body class="bg-amber-50 text-brown-900 min-h-screen py-10 px-6">
+  <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg border border-amber-200">
+    <h1 class="text-4xl font-bold mb-6 text-center text-amber-800">📚 Gestion de la Bibliothèque</h1>
 
-    <h2>Ajouter un Livre</h2>
-    <form id="addBookForm">
-        <input type="text" id="title" placeholder="Titre du livre" required>
-        <input type="text" id="author" placeholder="Auteur" required>
-        <button type="submit">Ajouter</button>
-    </form>
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold mb-4 text-amber-700">Ajouter un Livre</h2>
+      <form id="addBookForm" class="space-y-4">
+        <input type="text" id="title" placeholder="Titre du livre" required class="w-full p-3 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-400">
+        <input type="text" id="author" placeholder="Auteur" required class="w-full p-3 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-400">
+        <button type="submit" class="bg-amber-600 text-white px-6 py-2 rounded-md hover:bg-amber-700 transition">Ajouter</button>
+      </form>
+    </section>
 
-    <h2>Liste des Livres</h2>
-    <button id="listBooksBtn">Afficher les Livres</button>
-    <ul id="bookList"></ul>
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold mb-4 text-amber-700">Liste des Livres</h2>
+      <button id="listBooksBtn" class="mb-4 bg-amber-500 text-white px-4 py-2 rounded-md hover:bg-amber-600 transition">Afficher les Livres</button>
+      <ul id="bookList" class="list-disc pl-6 text-lg text-brown-800 space-y-1"></ul>
+    </section>
 
-    <h2>Rechercher un Livre</h2>
-    <form id="searchBookForm">
-        <input type="text" id="searchTitle" placeholder="Titre du livre" required>
-        <button type="submit">Rechercher</button>
-    </form>
-    <p id="searchResult"></p>
+    <section>
+      <h2 class="text-2xl font-semibold mb-4 text-amber-700">Rechercher un Livre</h2>
+      <form id="searchBookForm" class="space-y-4">
+        <input type="text" id="searchTitle" placeholder="Titre du livre" required class="w-full p-3 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-400">
+        <button type="submit" class="bg-amber-600 text-white px-6 py-2 rounded-md hover:bg-amber-700 transition">Rechercher</button>
+      </form>
+      <p id="searchResult" class="mt-4 text-lg font-medium text-green-700"></p>
+    </section>
+  </div>
 
-    <script type="module" src="app.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>
